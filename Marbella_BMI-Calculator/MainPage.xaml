@@ -1,0 +1,333 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marbella_BMI_Calculator.MainPage"
+             BackgroundColor="#0D0D0F"
+             Title="BMI Calculator">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Gradient Brush for the card -->
+            <LinearGradientBrush x:Key="CardGradient" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1A1A2E" Offset="0.0"/>
+                <GradientStop Color="#16213E" Offset="1.0"/>
+            </LinearGradientBrush>
+            
+            <!-- Input field style -->
+            <Style x:Key="InputStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="#FFFFFF"/>
+                <Setter Property="PlaceholderColor" Value="#555577"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="HeightRequest" Value="50"/>
+            </Style>
+
+            <!-- Label style for field titles -->
+            <Style x:Key="FieldLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#8888BB"/>
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CharacterSpacing" Value="2"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+
+            <!-- Unit label style -->
+            <Style x:Key="UnitLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#555577"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="0,0,0,10"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto" Padding="24,60,24,40" RowSpacing="0">
+
+            <!-- ═══ HEADER ═══ -->
+            <VerticalStackLayout Grid.Row="0" Spacing="6" Margin="0,0,0,40">
+                <Label Text="BMI"
+                       TextColor="#6C63FF"
+                       FontSize="52"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       CharacterSpacing="8"/>
+                <Label Text="CALCULATOR"
+                       TextColor="#FFFFFF"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       CharacterSpacing="6"/>
+                <BoxView HeightRequest="2"
+                         WidthRequest="60"
+                         Color="#6C63FF"
+                         HorizontalOptions="Center"
+                         Margin="0,10,0,0"
+                         CornerRadius="1"/>
+                <Label Text="Know your body. Know your health."
+                       TextColor="#555577"
+                       FontSize="12"
+                       HorizontalTextAlignment="Center"
+                       Margin="0,6,0,0"
+                       CharacterSpacing="1"/>
+            </VerticalStackLayout>
+
+            <!-- ═══ INPUT CARDS ═══ -->
+            <Grid Grid.Row="1" ColumnDefinitions="*,16,*" Margin="0,0,0,24">
+
+                <!-- Height Card -->
+                <Border Grid.Column="0"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="#2A2A4A"
+                        StrokeThickness="1"
+                        Background="{StaticResource CardGradient}"
+                        Padding="16,22">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="HEIGHT"
+                               Style="{StaticResource FieldLabelStyle}"/>
+                        <Entry x:Name="HeightEntry"
+                               Placeholder="0"
+                               Keyboard="Numeric"
+                               Style="{StaticResource InputStyle}"
+                               TextChanged="OnInputChanged"/>
+                        <Label x:Name="HeightUnitLabel"
+                               Text="centimeters"
+                               Style="{StaticResource UnitLabelStyle}"/>
+
+                        <!-- Unit Toggle -->
+                        <Border StrokeShape="RoundRectangle 10"
+                                Stroke="#2A2A4A"
+                                StrokeThickness="1"
+                                BackgroundColor="#0D0D0F"
+                                Padding="0">
+                            <Grid ColumnDefinitions="*,*" HeightRequest="34">
+                                <Button x:Name="CmBtn"
+                                        Grid.Column="0"
+                                        Text="cm"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="1"
+                                        BackgroundColor="#6C63FF"
+                                        TextColor="White"
+                                        CornerRadius="9"
+                                        Clicked="OnCmClicked"
+                                        HeightRequest="34"
+                                        Padding="0"/>
+                                <Button x:Name="FtBtn"
+                                        Grid.Column="1"
+                                        Text="ft"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="1"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#555577"
+                                        CornerRadius="0"
+                                        Clicked="OnFtClicked"
+                                        HeightRequest="34"
+                                        Padding="0"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Weight Card -->
+                <Border Grid.Column="2"
+                        StrokeShape="RoundRectangle 20"
+                        Stroke="#2A2A4A"
+                        StrokeThickness="1"
+                        Background="{StaticResource CardGradient}"
+                        Padding="16,22">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="WEIGHT"
+                               Style="{StaticResource FieldLabelStyle}"/>
+                        <Entry x:Name="WeightEntry"
+                               Placeholder="0"
+                               Keyboard="Numeric"
+                               Style="{StaticResource InputStyle}"
+                               TextChanged="OnInputChanged"/>
+                        <Label x:Name="WeightUnitLabel"
+                               Text="kilograms"
+                               Style="{StaticResource UnitLabelStyle}"/>
+
+                        <!-- Unit Toggle -->
+                        <Border StrokeShape="RoundRectangle 10"
+                                Stroke="#2A2A4A"
+                                StrokeThickness="1"
+                                BackgroundColor="#0D0D0F"
+                                Padding="0">
+                            <Grid ColumnDefinitions="*,*" HeightRequest="34">
+                                <Button x:Name="KgBtn"
+                                        Grid.Column="0"
+                                        Text="kg"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="1"
+                                        BackgroundColor="#6C63FF"
+                                        TextColor="White"
+                                        CornerRadius="9"
+                                        Clicked="OnKgClicked"
+                                        HeightRequest="34"
+                                        Padding="0"/>
+                                <Button x:Name="LbBtn"
+                                        Grid.Column="1"
+                                        Text="lb"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="1"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#555577"
+                                        CornerRadius="0"
+                                        Clicked="OnLbClicked"
+                                        HeightRequest="34"
+                                        Padding="0"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- ═══ CALCULATE BUTTON ═══ -->
+            <Button Grid.Row="2"
+                    Text="CALCULATE BMI"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CharacterSpacing="3"
+                    BackgroundColor="#6C63FF"
+                    TextColor="White"
+                    CornerRadius="16"
+                    HeightRequest="58"
+                    Margin="0,0,0,28"
+                    Shadow="{Shadow Brush='#6C63FF', Offset='0,8', Radius='20', Opacity='0.4'}"
+                    Clicked="OnCalculateClicked"/>
+
+            <!-- ═══ RESULT SECTION ═══ -->
+            <Border Grid.Row="3"
+                    x:Name="ResultCard"
+                    StrokeShape="RoundRectangle 24"
+                    Stroke="#2A2A4A"
+                    StrokeThickness="1"
+                    Background="{StaticResource CardGradient}"
+                    Padding="28,30"
+                    IsVisible="False">
+                <VerticalStackLayout Spacing="0">
+
+                    <!-- Result Header -->
+                    <Label Text="YOUR RESULT"
+                           TextColor="#8888BB"
+                           FontSize="10"
+                           FontAttributes="Bold"
+                           CharacterSpacing="3"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,0,0,20"/>
+
+                    <!-- BMI Score Circle -->
+                    <Grid HorizontalOptions="Center"
+                          WidthRequest="160"
+                          HeightRequest="160"
+                          Margin="0,0,0,24">
+
+                        <!-- Outer ring -->
+                        <Ellipse Stroke="#2A2A4A"
+                                 StrokeThickness="2"
+                                 Fill="Transparent"
+                                 WidthRequest="160"
+                                 HeightRequest="160"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"/>
+
+                        <!-- Inner glow ring -->
+                        <Ellipse x:Name="ResultRing"
+                                 Stroke="#6C63FF"
+                                 StrokeThickness="4"
+                                 Fill="Transparent"
+                                 WidthRequest="140"
+                                 HeightRequest="140"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"/>
+
+                        <!-- BMI Value -->
+                        <VerticalStackLayout VerticalOptions="Center"
+                                             HorizontalOptions="Center"
+                                             Spacing="2">
+                            <Label x:Name="BmiValueLabel"
+                                   Text="--"
+                                   TextColor="#FFFFFF"
+                                   FontSize="44"
+                                   FontAttributes="Bold"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label Text="BMI"
+                                   TextColor="#555577"
+                                   FontSize="11"
+                                   FontAttributes="Bold"
+                                   CharacterSpacing="2"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+
+                    <!-- Category Badge -->
+                    <Border x:Name="CategoryBadge"
+                            StrokeShape="RoundRectangle 30"
+                            Stroke="Transparent"
+                            BackgroundColor="#6C63FF"
+                            Padding="28,10"
+                            HorizontalOptions="Center"
+                            Margin="0,0,0,24">
+                        <Label x:Name="CategoryLabel"
+                               Text="Normal"
+                               TextColor="White"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               CharacterSpacing="2"
+                               HorizontalTextAlignment="Center"/>
+                    </Border>
+
+                    <!-- Description -->
+                    <Label x:Name="DescriptionLabel"
+                           Text=""
+                           TextColor="#8888BB"
+                           FontSize="13"
+                           HorizontalTextAlignment="Center"
+                           LineHeight="1.5"
+                           Margin="0,0,0,24"/>
+
+                    <!-- BMI Scale Bar -->
+                    <Label Text="BMI SCALE"
+                           TextColor="#555577"
+                           FontSize="9"
+                           FontAttributes="Bold"
+                           CharacterSpacing="2"
+                           HorizontalTextAlignment="Center"
+                           Margin="0,0,0,10"/>
+
+                    <!-- Scale segments -->
+                    <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="4" Margin="0,0,0,6">
+                        <Border Grid.Column="0" StrokeShape="RoundRectangle 4" Stroke="Transparent" BackgroundColor="#4FC3F7" HeightRequest="8"/>
+                        <Border Grid.Column="1" StrokeShape="RoundRectangle 4" Stroke="Transparent" BackgroundColor="#81C784" HeightRequest="8"/>
+                        <Border Grid.Column="2" StrokeShape="RoundRectangle 4" Stroke="Transparent" BackgroundColor="#FFB74D" HeightRequest="8"/>
+                        <Border Grid.Column="3" StrokeShape="RoundRectangle 4" Stroke="Transparent" BackgroundColor="#E57373" HeightRequest="8"/>
+                    </Grid>
+
+                    <!-- Scale Labels -->
+                    <Grid ColumnDefinitions="*,*,*,*">
+                        <Label Grid.Column="0" Text="Under" TextColor="#4FC3F7" FontSize="9" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="Normal" TextColor="#81C784" FontSize="9" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="2" Text="Over" TextColor="#FFB74D" FontSize="9" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="3" Text="Obese" TextColor="#E57373" FontSize="9" HorizontalTextAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Scale ranges -->
+                    <Grid ColumnDefinitions="*,*,*,*" Margin="0,2,0,0">
+                        <Label Grid.Column="0" Text="&lt;18.5" TextColor="#444466" FontSize="8" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="18.5–24.9" TextColor="#444466" FontSize="8" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="2" Text="25–29.9" TextColor="#444466" FontSize="8" HorizontalTextAlignment="Center"/>
+                        <Label Grid.Column="3" Text="≥30" TextColor="#444466" FontSize="8" HorizontalTextAlignment="Center"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

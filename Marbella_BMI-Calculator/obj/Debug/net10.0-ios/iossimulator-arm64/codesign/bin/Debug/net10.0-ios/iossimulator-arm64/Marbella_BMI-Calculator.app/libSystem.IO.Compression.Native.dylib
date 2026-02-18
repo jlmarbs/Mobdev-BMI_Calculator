@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - /Users/labuser/RiderProjects/Marbella_BMI-Calculator/bin/Debug/net10.0-ios/iossimulator-arm64/Marbella_BMI-Calculator.app/libSystem.IO.Compression.Native.dylib
